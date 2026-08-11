@@ -156,4 +156,4 @@ npm run dev
 
 ## License
 
-Add a license before making this repository public.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
