@@ -35,17 +35,9 @@ frontend polls for status until the job completes.
 
 The Python service caches each voice's clone-prompt keyed by the `request_id`
 used when it was created via `/prompt`. Every `/generate` call for that voice
-must reuse the *same* `request_id` to find that cached prompt - but Python
-also names its output file after that same ID, meaning naively reusing it
-would cause concurrent or repeated generations for one voice to overwrite
-each other's output mid-write.
-
-The fix: the Node.js worker sends a combined identifier,
+must reuse the *same* `request_id` to find that cached prompt. The service expects
 `"<voice_request_id>::<transaction_id>"`, where `transaction_id` is the
-generation job's own unique ID. The Python service splits this on `::`,
-using the first half to find the cached prompt and the second half to name
-the output file - so every generation gets a unique output path while still
-correctly reusing the voice's clone prompt.
+generation job's own unique ID. 
 
 ## Tech stack
 
