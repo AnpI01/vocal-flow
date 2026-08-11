@@ -1,0 +1,77 @@
+# ============================================================
+# Environment / secrets - never commit real values
+# ============================================================
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# ============================================================
+# Node.js / Next.js (apps/web)
+# ============================================================
+apps/web/node_modules/
+apps/web/.next/
+apps/web/out/
+apps/web/build/
+apps/web/npm-debug.log*
+apps/web/yarn-debug.log*
+apps/web/yarn-error.log*
+apps/web/.pnpm-debug.log*
+
+# Prisma generated client (regenerated via `npx prisma generate`)
+apps/web/node_modules/.prisma/
+apps/web/node_modules/@prisma/client/
+
+# User-uploaded / generated runtime content - not source, shouldn't be versioned
+apps/web/public/voice-samples/
+apps/web/public/generated-audio/
+
+# TypeScript build info
+apps/web/*.tsbuildinfo
+apps/web/next-env.d.ts
+
+# ============================================================
+# Python / FastAPI service (services/tts-api)
+# ============================================================
+services/tts-api/.venv/
+services/tts-api/__pycache__/
+services/tts-api/**/__pycache__/
+services/tts-api/*.pyc
+services/tts-api/.pytest_cache/
+
+# Runtime data - uploaded reference audio, generated output, cached voice prompts
+services/tts-api/temp/
+services/tts-api/cache/
+
+# Test client output
+services/tts-api/output/
+
+# uv keeps this managed automatically; regenerate rather than diffing by hand
+# (comment out if you'd rather commit it for reproducible installs)
+# services/tts-api/uv.lock
+
+# ============================================================
+# Docker
+# ============================================================
+docker-compose.override.yml
+
+# ============================================================
+# Editor / IDE
+# ============================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ============================================================
+# OS
+# ============================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================================
+# Misc
+# ============================================================
+*.log
+.cache/

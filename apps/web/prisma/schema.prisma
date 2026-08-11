@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String
+  createdAt     DateTime @default(now())
+
+  voices        Voice[]
+  jobs          GenerationJob[]
+}
+
+model Voice {
+  id               String   @id @default(cuid())
+  name             String
+  isPublic         Boolean  @default(false)
+  // Maps to the request_id used when calling the Python /prompt endpoint
+  ttsRequestId     String   @unique
+  sampleAudioUrl   String?  // path/URL to the stored reference sample, for playback in the UI
+  createdAt        DateTime @default(now())
+
+  owner            User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId          String
+
+  jobs             GenerationJob[]
+
+  @@index([ownerId])
+  @@index([isPublic])
+}
+
+enum JobStatus {
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model GenerationJob {
+  id              String    @id @default(cuid())
+  scriptText      String
+  scriptLang      String    @default("English")
+  status          JobStatus @default(QUEUED)
+  audioFilename   String?
+  errorMessage    String?
+  createdAt       DateTime  @default(now())
+  completedAt     DateTime?
+
+  owner           User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId         String
+
+  voice           Voice     @relation(fields: [voiceId], references: [id], onDelete: Cascade)
+  voiceId         String
+
+  @@index([ownerId])
+  @@index([status])
+}

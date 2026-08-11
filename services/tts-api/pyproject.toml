@@ -1,0 +1,15 @@
+[project]
+name = "tts-api"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.140.7",
+    "python-multipart>=0.0.32",
+    "qwen-tts",
+    "uvicorn>=0.51.0",
+]
+
+[tool.uv.sources]
+qwen-tts = { git = "https://github.com/QwenLM/Qwen3-TTS.git", rev = "022e286b98fbec7e1e916cb940cdf532cd9f488e" }
