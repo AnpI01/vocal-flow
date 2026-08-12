@@ -13,6 +13,8 @@ type JobData = {
 
 const POLL_INTERVAL_MS = 2500;
 
+const noop = () => {};
+
 const STATUS_LABEL: Record<JobStatus, string> = {
   QUEUED: "Queued...",
   PROCESSING: "Generating audio...",
@@ -22,10 +24,10 @@ const STATUS_LABEL: Record<JobStatus, string> = {
 
 export function JobStatusPoller({
   jobId,
-  onActiveChange,
+  onActiveChange = noop,
 }: {
   jobId: string;
-  onActiveChange: (isActive: boolean) => void;
+  onActiveChange?: (isActive: boolean) => void;
 }) {
   const [job, setJob] = useState<JobData | null>(null);
 

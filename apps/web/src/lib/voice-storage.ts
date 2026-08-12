@@ -10,8 +10,7 @@ export async function saveVoiceSample(requestId: string, audioFile: File): Promi
   const filename = `${requestId}.wav`;
   await writeFile(path.join(VOICE_SAMPLES_DIR, filename), buffer);
 
-  // Public URL path, servable directly by Next.js's static file handling
-  return `/voice-samples/${filename}`;
+  return `/api/voice-samples/${filename}`;
 }
 
 export async function deleteVoiceSample(requestId: string): Promise<void> {

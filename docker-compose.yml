@@ -29,5 +29,31 @@ services:
       - ./services/tts-api/temp:/app/temp
       - ./services/tts-api/cache:/app/cache
 
+  web:
+    build:
+      context: ./apps/web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Inside the Docker network, containers reach each other by
+      # service name, not localhost - "postgres" and "tts-api" here
+      # are the service names defined above, resolved via Docker's
+      # internal DNS.
+      DATABASE_URL: postgresql://vocalflow:vocalflow_dev_password@postgres:5432/vocalflow
+      TTS_API_URL: http://tts-api:8000
+      TTS_API_KEY: dev-api-key-change-me
+      AUTH_SECRET: ${AUTH_SECRET}
+      AUTH_URL: http://localhost:3000
+    volumes:
+      # Persist uploaded/generated audio across container rebuilds
+      - ./apps/web/public/voice-samples:/app/public/voice-samples
+      - ./apps/web/public/generated-audio:/app/public/generated-audio
+    depends_on:
+      postgres:
+        condition: service_healthy
+      tts-api:
+        condition: service_started
+
 volumes:
   postgres_data:

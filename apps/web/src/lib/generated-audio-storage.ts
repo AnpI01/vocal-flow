@@ -9,7 +9,7 @@ export async function saveGeneratedAudio(jobId: string, audioBytes: Buffer): Pro
   const filename = `${jobId}.wav`;
   await writeFile(path.join(GENERATED_AUDIO_DIR, filename), audioBytes);
 
-  return `/generated-audio/${filename}`;
+  return `/api/generated-audio/${filename}`;
 }
 
 export async function deleteGeneratedAudio(jobId: string): Promise<void> {

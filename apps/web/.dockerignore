@@ -1,0 +1,8 @@
+node_modules
+.next
+.git
+.env.local
+public/voice-samples
+public/generated-audio
+npm-debug.log*
+*.md
