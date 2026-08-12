@@ -5,6 +5,20 @@ from any text script. Vocal Flow pairs a Python inference service (running a
 local Qwen3-TTS model) with a Next.js web app that handles accounts, voice
 management, and background job orchestration.
 
+Vocal Flow is an end-to-end voice application that I designed, architected, 
+and implemented from the ground up using Node.js, FastAPI, PostgreSQL, pg-boss, and Docker.
+
+### Engineering
+
+- Designed the overall application architecture and service boundaries
+- Implemented the frontend/backend using the Node.js ecosystem
+- Built Python/FastAPI services for backend processing
+- Implemented PostgreSQL-backed asynchronous job processing to decouple long-running operations from API requests
+- PostgreSQL — Designed the persistent data layer for reliable storage and transactional state management.
+- Containerized services using Docker
+- Designed the API and file-storage workflows
+- Integrated the services into a complete end-to-end application
+
 ## Architecture
 
 ```
